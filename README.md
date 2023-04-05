@@ -1,7 +1,7 @@
 
-# public-service-pensions-remediation-frontend
+# Public Service Pensions Remediation frontend
 
-This is a placeholder README.md for a new repository
+This is a placeholder README.md for a repository
 
 ### License
 

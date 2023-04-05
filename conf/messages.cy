@@ -35,9 +35,9 @@ error.number = cy: Please enter a valid number
 error.required = cy: Please enter a value
 error.summary.title = cy: There is a problem
 
-index.title = cy: public-service-pensions-remediation-frontend
-index.heading = cy: public-service-pensions-remediation-frontend
-index.guidance = cy: Welcome to your new frontend. Please see the README file for a guide to getting started.
+index.title = cy: Public Service Pensions Remediation service
+index.heading = cy: Public Service Pensions Remediation service
+index.guidance = cy: Welcome to Public Service Pensions Remediation service. Please see the README file for a guide to getting started.
 
 checkYourAnswers.title = cy: Check Your Answers
 checkYourAnswers.heading = cy: Check Your Answers
