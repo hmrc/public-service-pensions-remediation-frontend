@@ -1,4 +1,4 @@
-service.name = public-service-pensions-remediation-frontend
+service.name = Public Service Pensions Remediation service
 
 site.back = Back
 site.remove = Remove
