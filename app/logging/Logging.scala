@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package models.requests
+package logging
 
-import play.api.mvc.{Request, WrappedRequest}
+import org.slf4j.{Logger, LoggerFactory}
 
-case class IdentifierRequest[A](request: Request[A], userId: String) extends WrappedRequest[A](request)
+trait Logging {
+
+  protected val logger: Logger =
+    LoggerFactory.getLogger("public-service-pensions-remediation-frontend." + getClass.getCanonicalName)
+}
