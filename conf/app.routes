@@ -19,3 +19,8 @@ GET         /account/sign-out                            controllers.auth.AuthCo
 GET         /account/signed-out                          controllers.auth.SignedOutController.onPageLoad
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /isRSSReceived                                 controllers.IsRSSReceivedController.onPageLoad(mode: Mode = NormalMode)
+POST       /isRSSReceived                                 controllers.IsRSSReceivedController.onSubmit(mode: Mode = NormalMode)
+GET        /changeIsRSSReceived                           controllers.IsRSSReceivedController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeIsRSSReceived                           controllers.IsRSSReceivedController.onSubmit(mode: Mode = CheckMode)

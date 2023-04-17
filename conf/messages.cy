@@ -55,3 +55,9 @@ signedOut.guidance = cy: We did not save your answers.
 
 unauthorised.title = cy: You can’t access this service with this account
 unauthorised.heading = cy: You can’t access this service with this account
+
+isRSSReceived.title = cy: Have you received a remedial service statement from your public service pension scheme?
+isRSSReceived.heading = cy: Have you received a remedial service statement from your public service pension scheme?
+isRSSReceived.yes = cy: Yes
+isRSSReceived.no = cy: No
+isRSSReceived.error.required = cy: Please select a value
