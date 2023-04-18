@@ -61,3 +61,4 @@ isRSSReceived.heading = Have you received a remedial service statement from your
 isRSSReceived.yes = Yes
 isRSSReceived.no = No
 isRSSReceived.error.required = Please select a value
+isRSSReceived.checkYourAnswersLabel = Have you received a remedial service statement from your public service pension scheme?

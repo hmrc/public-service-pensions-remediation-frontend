@@ -17,7 +17,9 @@
 package config
 
 import com.google.inject.AbstractModule
+import com.google.inject.name.Names
 import controllers.actions._
+import navigation.{DetailsNavigator, Navigator, SimpleNavigator}
 
 import java.time.{Clock, ZoneOffset}
 
@@ -30,6 +32,11 @@ class Module extends AbstractModule {
 
     // For session based storage instead of cred based, change to SessionIdentifierAction
     bind(classOf[IdentifierAction]).to(classOf[SessionIdentifierAction]).asEagerSingleton()
+
+    bind(classOf[Navigator]).to(classOf[SimpleNavigator]).asEagerSingleton()
+
+    bind(classOf[Navigator]).annotatedWith(Names.named("DetailsNavigator"))
+      .to(classOf[DetailsNavigator]).asEagerSingleton()
 
     bind(classOf[Clock]).toInstance(Clock.systemDefaultZone.withZone(ZoneOffset.UTC))
   }

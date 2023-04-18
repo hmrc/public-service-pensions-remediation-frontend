@@ -16,10 +16,23 @@
 
 package navigation
 
-import models.{Mode, UserAnswers}
-import pages.Page
+import controllers.routes
+import javax.inject.Singleton
+import models.UserAnswers
+import pages.{IsRSSReceivedPage, Page}
 import play.api.mvc.Call
 
-trait Navigator  {
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+@Singleton
+class DetailsNavigator extends SimpleNavigator with NavigatorHelpers {
+
+  override def normalRoutes: Page => UserAnswers => Call = {
+    case IsRSSReceivedPage => _ => routes.CheckYourAnswersController.onPageLoad
+    case _ => _ => routes.IndexController.onPageLoad
+  }
+
+  override def checkRouteMap: Page => UserAnswers => Call = {
+    case IsRSSReceivedPage => _ => routes.CheckYourAnswersController.onPageLoad
+    case _ => _ => routes.CheckYourAnswersController.onPageLoad
+  }
+
 }

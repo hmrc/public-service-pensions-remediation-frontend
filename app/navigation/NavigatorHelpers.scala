@@ -16,10 +16,9 @@
 
 package navigation
 
-import models.{Mode, UserAnswers}
-import pages.Page
 import play.api.mvc.Call
 
-trait Navigator  {
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+trait NavigatorHelpers {
+  protected def yesNoRouting(answer: Boolean, yesRoute: Call, noRoute: Call): Call =
+    if (answer) yesRoute else noRoute
 }

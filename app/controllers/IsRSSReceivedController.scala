@@ -18,7 +18,7 @@ package controllers
 
 import controllers.actions._
 import forms.IsRSSReceivedFormProvider
-import javax.inject.Inject
+import javax.inject.{Inject, Named}
 import models.{Mode, UserAnswers}
 import navigation.Navigator
 import pages.IsRSSReceivedPage
@@ -33,7 +33,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class IsRSSReceivedController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
-                                         navigator: Navigator,
+                                         @Named("DetailsNavigator") navigator: Navigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,

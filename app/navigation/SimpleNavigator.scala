@@ -16,10 +16,27 @@
 
 package navigation
 
-import models.{Mode, UserAnswers}
-import pages.Page
+import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
+import controllers.routes
+import pages._
+import models._
 
-trait Navigator  {
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+@Singleton
+class SimpleNavigator extends Navigator {
+
+  def normalRoutes: Page => UserAnswers => Call = {
+     _ => _ => routes.IndexController.onPageLoad
+  }
+
+  def checkRouteMap: Page => UserAnswers => Call = {
+     _ => _ => routes.CheckYourAnswersController.onPageLoad
+  }
+
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+    case NormalMode =>
+      normalRoutes(page)(userAnswers)
+    case CheckMode =>
+      checkRouteMap(page)(userAnswers)
+  }
 }
