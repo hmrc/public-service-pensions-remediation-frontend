@@ -16,7 +16,7 @@
 
 package pages
 
-import models.UserAnswers
+import models.{NormalMode, UserAnswers}
 import play.api.libs.json.JsPath
 import play.api.mvc.Call
 import controllers.routes
@@ -28,7 +28,7 @@ case object IsRSSReceivedPage extends QuestionPage[Boolean] {
   override def toString: String = "isRSSReceived"
 
   override protected def navigateInNormalMode(answers: UserAnswers): Call =
-    routes.CheckYourAnswersController.onPageLoad
+    routes.ResubmittingAdjustmentController.onPageLoad(NormalMode)
 
   override protected def navigateInCheckMode(answers: UserAnswers): Call =
     routes.CheckYourAnswersController.onPageLoad

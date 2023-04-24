@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import org.scalacheck.Arbitrary
-import pages._
+import javax.inject.Inject
 
-trait PageGenerators {}
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  implicit lazy val arbitraryResubmittingAdjustmentPage: Arbitrary[ResubmittingAdjustmentPage.type] =
-    Arbitrary(ResubmittingAdjustmentPage)
+class ResubmittingAdjustmentFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("resubmittingAdjustment.error.required")
+    )
+}

@@ -62,3 +62,10 @@ isRSSReceived.yes = Yes
 isRSSReceived.no = No
 isRSSReceived.error.required = You must select one of the options
 isRSSReceived.checkYourAnswersLabel = Have you received a remedial service statement from your public service pension scheme?
+
+resubmittingAdjustment.title = Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.heading = Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.checkYourAnswersLabel = Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.error.required = Please select a value
+resubmittingAdjustment.change.hidden = Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.hint = We are asking whether you are seeking an adjustment on your public service pension - either compensation or a tax charge.
