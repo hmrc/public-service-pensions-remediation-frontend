@@ -24,6 +24,14 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {}
 
+  implicit lazy val arbitraryReasonForResubmissionUserAnswersEntry: Arbitrary[(ReasonForResubmissionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReasonForResubmissionPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryResubmittingAdjustmentUserAnswersEntry: Arbitrary[(ResubmittingAdjustmentPage.type, JsValue)] =
     Arbitrary {
       for {

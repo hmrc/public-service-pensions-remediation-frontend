@@ -66,6 +66,14 @@ isRSSReceived.checkYourAnswersLabel = Have you received a remedial service state
 resubmittingAdjustment.title = Are you resubmitting a public pension adjustment?
 resubmittingAdjustment.heading = Are you resubmitting a public pension adjustment?
 resubmittingAdjustment.checkYourAnswersLabel = Are you resubmitting a public pension adjustment?
-resubmittingAdjustment.error.required = Please select a value
+resubmittingAdjustment.error.required = You must select one of the options
 resubmittingAdjustment.change.hidden = Are you resubmitting a public pension adjustment?
 resubmittingAdjustment.hint = We are asking whether you are seeking an adjustment on your public service pension - either compensation or a tax charge.
+
+reasonForResubmission.title = What is your reason for a resubmission?
+reasonForResubmission.heading = What is your reason for a resubmission?
+reasonForResubmission.checkYourAnswersLabel = What is your reason for a resubmission?
+reasonForResubmission.error.required = Please type your reason
+reasonForResubmission.error.length = Your submission reason must be 100 characters or less
+reasonForResubmission.change.hidden = What is your reason for a resubmission?
+reasonForResubmission.hint = Provide the reason for your resubmission in the space below.

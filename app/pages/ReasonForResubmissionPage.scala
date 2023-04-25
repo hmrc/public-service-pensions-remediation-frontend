@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import org.scalacheck.Arbitrary
-import pages._
+import play.api.libs.json.JsPath
 
-trait PageGenerators {}
+case object ReasonForResubmissionPage extends QuestionPage[String] {
 
-  implicit lazy val arbitraryReasonForResubmissionPage: Arbitrary[ReasonForResubmissionPage.type] =
-    Arbitrary(ReasonForResubmissionPage)
+  override def path: JsPath = JsPath \ toString
 
-  implicit lazy val arbitraryResubmittingAdjustmentPage: Arbitrary[ResubmittingAdjustmentPage.type] =
-    Arbitrary(ResubmittingAdjustmentPage)
+  override def toString: String = "reasonForResubmission"
+}
