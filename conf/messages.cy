@@ -60,5 +60,5 @@ isRSSReceived.title = cy: Have you received a remedial service statement from yo
 isRSSReceived.heading = cy: Have you received a remedial service statement from your public service pension scheme?
 isRSSReceived.yes = cy: Yes
 isRSSReceived.no = cy: No
-isRSSReceived.error.required = cy: Please select a value
+isRSSReceived.error.required = cy: You must select one of the options
 isRSSReceived.checkYourAnswersLabel = cy: Have you received a remedial service statement from your public service pension scheme?

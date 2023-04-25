@@ -20,7 +20,7 @@ GET         /account/signed-out                          controllers.auth.Signed
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad
 
-GET        /isRSSReceived                                 controllers.IsRSSReceivedController.onPageLoad(mode: Mode = NormalMode)
-POST       /isRSSReceived                                 controllers.IsRSSReceivedController.onSubmit(mode: Mode = NormalMode)
-GET        /changeIsRSSReceived                           controllers.IsRSSReceivedController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeIsRSSReceived                           controllers.IsRSSReceivedController.onSubmit(mode: Mode = CheckMode)
+GET        /savings-statement                            controllers.IsRSSReceivedController.onPageLoad(mode: Mode = NormalMode)
+POST       /savings-statement                            controllers.IsRSSReceivedController.onSubmit(mode: Mode = NormalMode)
+GET        /change-savings-statement                     controllers.IsRSSReceivedController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-savings-statement                     controllers.IsRSSReceivedController.onSubmit(mode: Mode = CheckMode)

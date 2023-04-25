@@ -18,9 +18,8 @@ package controllers
 
 import controllers.actions._
 import forms.IsRSSReceivedFormProvider
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 import models.{Mode, UserAnswers}
-import navigation.Navigator
 import pages.IsRSSReceivedPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +32,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class IsRSSReceivedController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
-                                         @Named("DetailsNavigator") navigator: Navigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -66,7 +64,7 @@ class IsRSSReceivedController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.getOrElse(UserAnswers(request.userId)).set(IsRSSReceivedPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(IsRSSReceivedPage, mode, updatedAnswers))
+          } yield Redirect(IsRSSReceivedPage.navigate(mode, updatedAnswers))
       )
   }
 }

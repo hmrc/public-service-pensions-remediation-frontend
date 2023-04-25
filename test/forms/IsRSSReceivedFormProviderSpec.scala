@@ -14,12 +14,32 @@
  * limitations under the License.
  */
 
-package navigation
+package forms
 
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-trait Navigator  {
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+class IsRSSReceivedFormProviderSpec extends BooleanFieldBehaviours {
+
+  val requiredKey = "isRSSReceived.error.required"
+  val invalidKey = "error.boolean"
+
+  val form = new IsRSSReceivedFormProvider()()
+
+  ".value" - {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }
