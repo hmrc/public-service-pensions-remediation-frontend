@@ -20,6 +20,7 @@
     layout: templates.Layout,
     formHelper: FormWithCSRF,
     govukErrorSummary: GovukErrorSummary,
+    govukTextarea: GovukTextarea,
     govukInput: GovukInput,
     govukButton: GovukButton
 )
@@ -33,14 +34,15 @@
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form))
         }
-
-        @govukInput(
-            InputViewModel(
+        
+        @govukTextarea(
+            TextareaViewModel(
                 field = form("value"),
                 label = LabelViewModel(messages("reasonForResubmission.heading")).asPageHeading()
-            )
-            .withWidth(Full)
-            .withHint(HintViewModel(messages("reasonForResubmission.hint")))
+                )
+                .withRows(15)
+                .withAttribute("maxlength","8167")
+                .withHint(HintViewModel(messages("reasonForResubmission.hint")))
         )
 
         @govukButton(

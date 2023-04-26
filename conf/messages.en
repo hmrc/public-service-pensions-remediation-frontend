@@ -72,6 +72,7 @@ resubmittingAdjustment.hint = We are asking whether you are seeking an adjustmen
 
 reasonForResubmission.title = What is your reason for a resubmission?
 reasonForResubmission.heading = What is your reason for a resubmission?
+reasonForResubmission.label = What is your reason for a resubmission?
 reasonForResubmission.checkYourAnswersLabel = What is your reason for a resubmission?
 reasonForResubmission.error.required = Please type your reason
 reasonForResubmission.error.length = Your submission reason must be 100 characters or less
