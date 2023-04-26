@@ -20,7 +20,6 @@ import controllers.actions._
 import forms.ReasonForResubmissionFormProvider
 import javax.inject.{Inject, Named}
 import models.Mode
-import navigation.Navigator
 import pages.ReasonForResubmissionPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +32,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class ReasonForResubmissionController @Inject()(
                                         override val messagesApi: MessagesApi,
                                         sessionRepository: SessionRepository,
-                                        @Named("DetailsNavigator") navigator: Navigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
@@ -66,7 +64,7 @@ class ReasonForResubmissionController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(ReasonForResubmissionPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ReasonForResubmissionPage, mode, updatedAnswers))
+          } yield Redirect(ReasonForResubmissionPage.navigate(mode, updatedAnswers))
       )
   }
 }

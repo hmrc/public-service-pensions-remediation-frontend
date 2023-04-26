@@ -17,7 +17,7 @@
 package pages
 
 import controllers.routes
-import models.{NormalMode, UserAnswers}
+import models.{NormalMode, CheckMode, UserAnswers}
 import play.api.libs.json.JsPath
 import play.api.mvc.Call
 
@@ -28,8 +28,8 @@ case object ResubmittingAdjustmentPage extends QuestionPage[Boolean] {
   override def toString: String = "resubmittingAdjustment"
 
   override protected def navigateInNormalMode(answers: UserAnswers): Call =
-    routes.CheckYourAnswersController.onPageLoad
+    routes.ReasonForResubmissionController.onPageLoad(NormalMode)
 
   override protected def navigateInCheckMode(answers: UserAnswers): Call =
-    routes.CheckYourAnswersController.onPageLoad
+    routes.ReasonForResubmissionController.onPageLoad(NormalMode)
 }
