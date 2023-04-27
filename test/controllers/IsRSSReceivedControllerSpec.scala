@@ -149,8 +149,57 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+        redirectLocation(result).value mustEqual routes.ResubmittingAdjustmentController.onPageLoad(NormalMode).url
       }
     }
+    
+    "redirect to ResubmittingAdjustment page when user answers true" in {
+       val mockSessionRepository = mock[SessionRepository]
+       
+       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+       val application =
+         applicationBuilder(userAnswers = Some(emptyUserAnswers))
+           .overrides(
+             bind[SessionRepository].toInstance(mockSessionRepository)
+           )
+           .build()
+
+       running(application) {
+         val request =
+           FakeRequest(POST, isRSSReceivedRoute)
+             .withFormUrlEncodedBody(("value", "true"))
+
+         val result = route(application, request).value
+
+         status(result) mustEqual SEE_OTHER
+         redirectLocation(result).value mustEqual routes.ResubmittingAdjustmentController.onPageLoad(NormalMode).url
+       }
+   }
+
+   //Change to apropriate page upon implementation
+   "redirect to checkyouranswers page when user answers false" in {
+      val mockSessionRepository = mock[SessionRepository]
+      
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, isRSSReceivedRoute)
+            .withFormUrlEncodedBody(("value", "false"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+   } 
   }
 }
