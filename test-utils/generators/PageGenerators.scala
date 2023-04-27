@@ -19,10 +19,19 @@ package generators
 import org.scalacheck.Arbitrary
 import pages._
 
-trait PageGenerators {}
-
+trait PageGenerators {
+  
   implicit lazy val arbitraryReasonForResubmissionPage: Arbitrary[ReasonForResubmissionPage.type] =
     Arbitrary(ReasonForResubmissionPage)
-
+      
   implicit lazy val arbitraryResubmittingAdjustmentPage: Arbitrary[ResubmittingAdjustmentPage.type] =
     Arbitrary(ResubmittingAdjustmentPage)
+    
+ }
+
+  
+
+  
+    
+ 
+
