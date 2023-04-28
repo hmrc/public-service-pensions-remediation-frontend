@@ -37,7 +37,7 @@ class ReasonForResubmissionControllerSpec extends SpecBase with MockitoSugar {
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new ReasonForResubmissionFormProvider()
-  val form = formProvider()
+  val form         = formProvider()
 
   lazy val reasonForResubmissionRoute = routes.ReasonForResubmissionController.onPageLoad(NormalMode).url
 
@@ -153,30 +153,30 @@ class ReasonForResubmissionControllerSpec extends SpecBase with MockitoSugar {
         redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
       }
     }
-    
-    //Change to apropriate page upon implementation
-   "redirect to checkyouranswers page when user answers false" in {
-     val mockSessionRepository = mock[SessionRepository]
-     
-     when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-     val application =
-       applicationBuilder(userAnswers = Some(emptyUserAnswers))
-         .overrides(
-           bind[SessionRepository].toInstance(mockSessionRepository)
-         )
-         .build()
+    // Change to apropriate page upon implementation
+    "redirect to checkyouranswers page when user answers false" in {
+      val mockSessionRepository = mock[SessionRepository]
 
-     running(application) {
-       val request =
-         FakeRequest(POST, reasonForResubmissionRoute)
-           .withFormUrlEncodedBody(("value", "testvalue"))
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-       val result = route(application, request).value
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
 
-       status(result) mustEqual SEE_OTHER
-       redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
-     }
-   }
+      running(application) {
+        val request =
+          FakeRequest(POST, reasonForResubmissionRoute)
+            .withFormUrlEncodedBody(("value", "testvalue"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+    }
   }
 }

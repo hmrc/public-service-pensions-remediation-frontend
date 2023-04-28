@@ -24,7 +24,7 @@
                 label = LabelViewModel(messages("$className;format="decap"$.heading")).asPageHeading()
                 )
                 .withRows(10)
-                .withAttribute("maxlength","8167")
+                .withAttribute("maxlength",$maxLength$)
                 .withHint(HintViewModel(messages("$className;format="decap"$.hint")))
         )
 

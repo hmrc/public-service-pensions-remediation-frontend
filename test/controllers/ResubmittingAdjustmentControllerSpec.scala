@@ -37,7 +37,7 @@ class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new ResubmittingAdjustmentFormProvider()
-  val form = formProvider()
+  val form         = formProvider()
 
   lazy val resubmittingAdjustmentRoute = routes.ResubmittingAdjustmentController.onPageLoad(NormalMode).url
 
@@ -96,7 +96,7 @@ class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
             .withFormUrlEncodedBody(("value", "true"))
 
         val result = route(application, request).value
-        
+
         val expectedAnswers = emptyUserAnswers.set(ResubmittingAdjustmentPage, true).success.value
 
         status(result) mustEqual SEE_OTHER
@@ -153,55 +153,54 @@ class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
         redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
       }
     }
-    
+
     "redirect to ReasonForResubmission page when user answers true" in {
-     val mockSessionRepository = mock[SessionRepository]
-     
-     when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+      val mockSessionRepository = mock[SessionRepository]
 
-     val application =
-       applicationBuilder(userAnswers = Some(emptyUserAnswers))
-         .overrides(
-           bind[SessionRepository].toInstance(mockSessionRepository)
-         )
-         .build()
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-     running(application) {
-       val request =
-         FakeRequest(POST, resubmittingAdjustmentRoute)
-           .withFormUrlEncodedBody(("value", "true"))
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
 
-       val result = route(application, request).value
+      running(application) {
+        val request =
+          FakeRequest(POST, resubmittingAdjustmentRoute)
+            .withFormUrlEncodedBody(("value", "true"))
 
-       status(result) mustEqual SEE_OTHER
-       redirectLocation(result).value mustEqual routes.ReasonForResubmissionController.onPageLoad(NormalMode).url
-     }
-   }
+        val result = route(application, request).value
 
-   //Change to apropriate page upon implementation
-   "redirect to checkyouranswers page when user answers false" in {
-     val mockSessionRepository = mock[SessionRepository]
-     
-     when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.ReasonForResubmissionController.onPageLoad(NormalMode).url
+      }
+    }
 
-     val application =
-       applicationBuilder(userAnswers = Some(emptyUserAnswers))
-         .overrides(
-           bind[SessionRepository].toInstance(mockSessionRepository)
-         )
-         .build()
+    // Change to apropriate page upon implementation
+    "redirect to checkyouranswers page when user answers false" in {
+      val mockSessionRepository = mock[SessionRepository]
 
-     running(application) {
-       val request =
-         FakeRequest(POST, resubmittingAdjustmentRoute)
-           .withFormUrlEncodedBody(("value", "false"))
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-       val result = route(application, request).value
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
 
-       status(result) mustEqual SEE_OTHER
-       redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
-     }
-   }  
+      running(application) {
+        val request =
+          FakeRequest(POST, resubmittingAdjustmentRoute)
+            .withFormUrlEncodedBody(("value", "false"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+    }
   }
 }
-

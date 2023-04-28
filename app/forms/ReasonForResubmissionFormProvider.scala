@@ -26,6 +26,6 @@ class ReasonForResubmissionFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("reasonForResubmission.error.required")
-        .verifying(maxLength(100, "reasonForResubmission.error.length"))
+        .verifying(maxLength(500, "reasonForResubmission.error.length"))
     )
 }

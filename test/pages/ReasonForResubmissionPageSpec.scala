@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import org.scalacheck.Arbitrary
-import pages._
+import pages.behaviours.PageBehaviours
 
-trait PageGenerators {
 
-  implicit lazy val arbitraryReasonForResubmissionPage: Arbitrary[ReasonForResubmissionPage.type] =
-    Arbitrary(ReasonForResubmissionPage)
+class ReasonForResubmissionPageSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryResubmittingAdjustmentPage: Arbitrary[ResubmittingAdjustmentPage.type] =
-    Arbitrary(ResubmittingAdjustmentPage)
+  "ReasonForResubmissionPage" - {
 
+    beRetrievable[String](ReasonForResubmissionPage)
+
+    beSettable[String](ReasonForResubmissionPage)
+
+    beRemovable[String](ReasonForResubmissionPage)
+  }
 }

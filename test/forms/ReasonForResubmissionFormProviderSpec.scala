@@ -23,7 +23,7 @@ class ReasonForResubmissionFormProviderSpec extends StringFieldBehaviours {
 
   val requiredKey = "reasonForResubmission.error.required"
   val lengthKey = "reasonForResubmission.error.length"
-  val maxLength = 100
+  val maxLength = 500
 
   val form = new ReasonForResubmissionFormProvider()()
 

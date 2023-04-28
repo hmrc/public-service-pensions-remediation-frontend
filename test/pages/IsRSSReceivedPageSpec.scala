@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import org.scalacheck.Arbitrary
-import pages._
+import pages.behaviours.PageBehaviours
 
-trait PageGenerators {
+class IsRSSReceivedPageSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryReasonForResubmissionPage: Arbitrary[ReasonForResubmissionPage.type] =
-    Arbitrary(ReasonForResubmissionPage)
+  "IsRSSReceivedPage" - {
 
-  implicit lazy val arbitraryResubmittingAdjustmentPage: Arbitrary[ResubmittingAdjustmentPage.type] =
-    Arbitrary(ResubmittingAdjustmentPage)
+    beRetrievable[Boolean](IsRSSReceivedPage)
 
+    beSettable[Boolean](IsRSSReceivedPage)
+
+    beRemovable[Boolean](IsRSSReceivedPage)
+  }
 }
