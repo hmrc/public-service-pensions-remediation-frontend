@@ -55,3 +55,10 @@ signedOut.guidance = We did not save your answers.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+isRSSReceived.title = Have you received a remedial service statement from your public service pension scheme?
+isRSSReceived.heading = Have you received a remedial service statement from your public service pension scheme?
+isRSSReceived.yes = Yes
+isRSSReceived.no = No
+isRSSReceived.error.required = You must select one of the options
+isRSSReceived.checkYourAnswersLabel = Have you received a remedial service statement from your public service pension scheme?

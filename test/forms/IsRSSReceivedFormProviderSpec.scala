@@ -14,16 +14,32 @@
  * limitations under the License.
  */
 
-package models
+package forms
 
-case class Field(name: String, errorKeys: Map[ErrorType, String])
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-object Field {
+class IsRSSReceivedFormProviderSpec extends BooleanFieldBehaviours {
 
-  def apply(name: String, errors: (ErrorType, String)*): Field =
-    Field(name, errors.toMap)
+  val requiredKey = "isRSSReceived.error.required"
+  val invalidKey = "error.boolean"
+
+  val form = new IsRSSReceivedFormProvider()()
+
+  ".value" - {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }
-
-sealed trait ErrorType
-case object Required extends ErrorType
-case object Invalid extends ErrorType
