@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import forms.IsRSSReceivedFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{CheckMode, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -40,6 +40,9 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
   val form = formProvider()
 
   lazy val isRSSReceivedRoute = routes.IsRSSReceivedController.onPageLoad(NormalMode).url
+
+  lazy val isRSSReceivedNormalRoute = routes.IsRSSReceivedController.onPageLoad(NormalMode).url
+  lazy val isRSSReceivedCheckRoute = routes.IsRSSReceivedController.onPageLoad(CheckMode).url
 
   "IsRSSReceived Controller" - {
 
@@ -92,7 +95,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedRoute)
+          FakeRequest(POST, isRSSReceivedNormalRoute)
             .withFormUrlEncodedBody(("value", "true"))
 
         val result = route(application, request).value
@@ -110,7 +113,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedRoute)
+          FakeRequest(POST, isRSSReceivedNormalRoute)
             .withFormUrlEncodedBody(("value", ""))
 
         val boundForm = form.bind(Map("value" -> ""))
@@ -124,27 +127,96 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "must redirect to Journey Recovery for a GET if no existing data is found" in {
+    "redirect to CheckYourAnswers page when user answers true" in {
+      val mockSessionRepository = mock[SessionRepository]
 
-      val application = applicationBuilder(userAnswers = None).build()
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-      running(application) {
-        val request = FakeRequest(GET, isRSSReceivedRoute)
-
-        val result = route(application, request).value
-
-        status(result) mustEqual OK
-      }
-    }
-
-    "must redirect to Journey Recovery for a POST if no existing data is found" in {
-
-      val application = applicationBuilder(userAnswers = None).build()
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedRoute)
+          FakeRequest(POST, isRSSReceivedNormalRoute)
             .withFormUrlEncodedBody(("value", "true"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+    }
+
+    //Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false" in {
+      val mockSessionRepository = mock[SessionRepository]
+
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, isRSSReceivedNormalRoute)
+            .withFormUrlEncodedBody(("value", "false"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+    }
+
+    "redirect to CheckYourAnswers page when user answers true in check mode" in {
+      val mockSessionRepository = mock[SessionRepository]
+
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, isRSSReceivedCheckRoute)
+            .withFormUrlEncodedBody(("value", "true"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+      }
+    }
+
+    //Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false in check mode" in {
+      val mockSessionRepository = mock[SessionRepository]
+
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, isRSSReceivedCheckRoute)
+            .withFormUrlEncodedBody(("value", "false"))
 
         val result = route(application, request).value
 
