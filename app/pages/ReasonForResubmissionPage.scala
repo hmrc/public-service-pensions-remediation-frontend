@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package viewmodels
+package pages
 
-package object govuk {
+import controllers.routes
+import models.{NormalMode, CheckMode, UserAnswers}
+import play.api.libs.json.JsPath
+import play.api.mvc.Call
 
-  object all
-      extends ImplicitConversions
-      with BackLinkFluency
-      with ButtonFluency
-      with CheckboxFluency
-      with DateFluency
-      with ErrorSummaryFluency
-      with FieldsetFluency
-      with HintFluency
-      with InputFluency
-      with LabelFluency
-      with RadiosFluency
-      with SummaryListFluency
-      with TagFluency
-      with TextareaFluency
+case object ReasonForResubmissionPage extends QuestionPage[String] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "reasonForResubmission"
+  
+  override protected def navigateInNormalMode(answers: UserAnswers): Call =
+  routes.CheckYourAnswersController.onPageLoad
+
+  override protected def navigateInCheckMode(answers: UserAnswers): Call =
+    routes.CheckYourAnswersController.onPageLoad
 }
