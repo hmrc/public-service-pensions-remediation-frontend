@@ -36,5 +36,4 @@ case object ResubmittingAdjustmentPage extends QuestionPage[Boolean] {
     case Some(true)  => routes.ReasonForResubmissionController.onPageLoad(CheckMode)
     case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to appropriate page upon implementation
   }
-    
 }
