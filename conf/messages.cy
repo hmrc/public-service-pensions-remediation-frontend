@@ -62,3 +62,19 @@ isRSSReceived.yes = cy: Yes
 isRSSReceived.no = cy: No
 isRSSReceived.error.required = cy: You must select one of the options
 isRSSReceived.checkYourAnswersLabel = cy: Have you received a remedial service statement from your public service pension scheme?
+
+resubmittingAdjustment.title = cy: Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.heading = cy: Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.checkYourAnswersLabel = cy: Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.error.required = cy: You must select one of the options
+resubmittingAdjustment.change.hidden = cy: Are you resubmitting a public pension adjustment?
+resubmittingAdjustment.hint = cy: We are asking whether you are seeking an adjustment on your public service pension - either compensation or a tax charge.
+
+reasonForResubmission.title = cy: What is your reason for a resubmission?
+reasonForResubmission.heading = cy: What is your reason for a resubmission?
+reasonForResubmission.label = cy: What is your reason for a resubmission?
+reasonForResubmission.checkYourAnswersLabel = cy: What is your reason for a resubmission?
+reasonForResubmission.error.required = cy: Enter your reason
+reasonForResubmission.error.length = cy: Your submission reason must be 500 characters or less
+reasonForResubmission.change.hidden = cy: What is your reason for a resubmission?
+reasonForResubmission.hint = cy: Provide the reason for your resubmission in the space below.

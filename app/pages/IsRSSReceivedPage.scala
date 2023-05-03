@@ -16,7 +16,7 @@
 
 package pages
 
-import models.UserAnswers
+import models.{NormalMode, CheckMode, UserAnswers}
 import play.api.libs.json.JsPath
 import play.api.mvc.Call
 import controllers.routes
@@ -28,13 +28,12 @@ case object IsRSSReceivedPage extends QuestionPage[Boolean] {
   override def toString: String = "isRSSReceived"
 
   override protected def navigateInNormalMode(answers: UserAnswers): Call = answers.get(IsRSSReceivedPage) match {
-    case Some(true)  => routes.CheckYourAnswersController.onPageLoad  //Redirect to Resubmission Adjustment Page upon implementation
-    case Some(false) => routes.CheckYourAnswersController.onPageLoad  //Redirect to kick out page upon implementation
-    case _           => routes.JourneyRecoveryController.onPageLoad()
+    case Some(true)  => routes.ResubmittingAdjustmentController.onPageLoad(NormalMode)
+    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kick out page upon implementation
   }
+  
   override protected def navigateInCheckMode(answers: UserAnswers): Call = answers.get(IsRSSReceivedPage) match {
-    case Some(true)  => routes.CheckYourAnswersController.onPageLoad  //Redirect to Resubmission Adjustment Page upon implementation
-    case Some(false) => routes.CheckYourAnswersController.onPageLoad  //Redirect to kick out page upon implementation
-    case _           => routes.JourneyRecoveryController.onPageLoad()
+    case Some(true)  => routes.ResubmittingAdjustmentController.onPageLoad(CheckMode)
+    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kick out page upon implementation
   }
 }

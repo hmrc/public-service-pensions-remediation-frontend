@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package viewmodels
+package forms
 
-package object govuk {
+import javax.inject.Inject
 
-  object all
-      extends ImplicitConversions
-      with BackLinkFluency
-      with ButtonFluency
-      with CheckboxFluency
-      with DateFluency
-      with ErrorSummaryFluency
-      with FieldsetFluency
-      with HintFluency
-      with InputFluency
-      with LabelFluency
-      with RadiosFluency
-      with SummaryListFluency
-      with TagFluency
-      with TextareaFluency
+import forms.mappings.Mappings
+import play.api.data.Form
+
+class ResubmittingAdjustmentFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("resubmittingAdjustment.error.required")
+    )
 }

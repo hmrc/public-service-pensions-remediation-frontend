@@ -17,43 +17,43 @@
 package controllers
 
 import base.SpecBase
-import forms.IsRSSReceivedFormProvider
+import forms.ResubmittingAdjustmentFormProvider
 import models.{NormalMode, CheckMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.IsRSSReceivedPage
+import pages.ResubmittingAdjustmentPage
 import play.api.inject.bind
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import views.html.IsRSSReceivedView
+import views.html.ResubmittingAdjustmentView
 
 import scala.concurrent.Future
 
-class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
+class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
 
   def onwardRoute = Call("GET", "/foo")
 
-  val formProvider = new IsRSSReceivedFormProvider()
-  val form = formProvider()
+  val formProvider = new ResubmittingAdjustmentFormProvider()
+  val form         = formProvider()
 
-  lazy val isRSSReceivedNormalRoute = routes.IsRSSReceivedController.onPageLoad(NormalMode).url
-  lazy val isRSSReceivedCheckRoute = routes.IsRSSReceivedController.onPageLoad(CheckMode).url
+  lazy val resubmittingNormalRoute = routes.ResubmittingAdjustmentController.onPageLoad(NormalMode).url
+  lazy val resubmittingCheckRoute = routes.ResubmittingAdjustmentController.onPageLoad(CheckMode).url
 
-  "IsRSSReceived Controller" - {
+  "ResubmittingAdjustment Controller" - {
 
     "must return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
 
       running(application) {
-        val request = FakeRequest(GET, isRSSReceivedNormalRoute)
+        val request = FakeRequest(GET, resubmittingNormalRoute)
 
         val result = route(application, request).value
 
-        val view = application.injector.instanceOf[IsRSSReceivedView]
+        val view = application.injector.instanceOf[ResubmittingAdjustmentView]
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(request, messages(application)).toString
@@ -62,14 +62,14 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
     "must populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(IsRSSReceivedPage, true).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(ResubmittingAdjustmentPage, true).success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 
       running(application) {
-        val request = FakeRequest(GET, isRSSReceivedNormalRoute)
+        val request = FakeRequest(GET, resubmittingNormalRoute)
 
-        val view = application.injector.instanceOf[IsRSSReceivedView]
+        val view = application.injector.instanceOf[ResubmittingAdjustmentView]
 
         val result = route(application, request).value
 
@@ -93,15 +93,15 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
+          FakeRequest(POST, resubmittingNormalRoute)
             .withFormUrlEncodedBody(("value", "true"))
 
         val result = route(application, request).value
 
-        val expectedAnswers = emptyUserAnswers.set(IsRSSReceivedPage, true).success.value
+        val expectedAnswers = emptyUserAnswers.set(ResubmittingAdjustmentPage, true).success.value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual IsRSSReceivedPage.navigate(NormalMode, expectedAnswers).url
+        redirectLocation(result).value mustEqual ResubmittingAdjustmentPage.navigate(NormalMode, expectedAnswers).url
       }
     }
 
@@ -111,12 +111,12 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
+          FakeRequest(POST, resubmittingNormalRoute)
             .withFormUrlEncodedBody(("value", ""))
 
         val boundForm = form.bind(Map("value" -> ""))
 
-        val view = application.injector.instanceOf[IsRSSReceivedView]
+        val view = application.injector.instanceOf[ResubmittingAdjustmentView]
 
         val result = route(application, request).value
 
@@ -125,32 +125,37 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "redirect to ResubmittingAdjustment page when user answers true" in {
-      val mockSessionRepository = mock[SessionRepository]
+    "must redirect to Journey Recovery for a GET if no existing data is found" in {
 
-      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+      val application = applicationBuilder(userAnswers = None).build()
 
-      val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
-          .overrides(
-            bind[SessionRepository].toInstance(mockSessionRepository)
-          )
-          .build()
+      running(application) {
+        val request = FakeRequest(GET, resubmittingNormalRoute)
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
+      }
+    }
+
+    "must redirect to Journey Recovery for a POST if no existing data is found" in {
+
+      val application = applicationBuilder(userAnswers = None).build()
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
+          FakeRequest(POST, resubmittingNormalRoute)
             .withFormUrlEncodedBody(("value", "true"))
 
         val result = route(application, request).value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.ResubmittingAdjustmentController.onPageLoad(NormalMode).url
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
       }
     }
 
-    //Change to appropriate page upon implementation
-    "redirect to CheckYourAnswers page when user answers false" in {
+    "redirect to ReasonForResubmission page when user answers true in Normal Mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -164,7 +169,32 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
+          FakeRequest(POST, resubmittingNormalRoute)
+            .withFormUrlEncodedBody(("value", "true"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.ReasonForResubmissionController.onPageLoad(NormalMode).url
+      }
+    }
+
+    // Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false in Normal Mode" in {
+      val mockSessionRepository = mock[SessionRepository]
+
+      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
+
+      val application =
+        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository)
+          )
+          .build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, resubmittingNormalRoute)
             .withFormUrlEncodedBody(("value", "false"))
 
         val result = route(application, request).value
@@ -174,7 +204,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
     
-    "redirect to ResubmittingAdjustment page when user answers true in check mode" in {
+    "redirect to ReasonForResubmission page when user answers true in Check Mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -188,18 +218,18 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedCheckRoute)
+          FakeRequest(POST, resubmittingCheckRoute)
             .withFormUrlEncodedBody(("value", "true"))
 
         val result = route(application, request).value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.ResubmittingAdjustmentController.onPageLoad(CheckMode).url
+        redirectLocation(result).value mustEqual routes.ReasonForResubmissionController.onPageLoad(CheckMode).url
       }
     }
 
-    //Change to appropriate page upon implementation
-    "redirect to CheckYourAnswers page when user answers false in check mode" in {
+    // Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false in Check Mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -213,7 +243,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
 
       running(application) {
         val request =
-          FakeRequest(POST, isRSSReceivedCheckRoute)
+          FakeRequest(POST, resubmittingCheckRoute)
             .withFormUrlEncodedBody(("value", "false"))
 
         val result = route(application, request).value
