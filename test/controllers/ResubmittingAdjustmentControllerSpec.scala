@@ -179,8 +179,8 @@ class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    // Change to apropriate page upon implementation
-    "redirect to checkyouranswers page when user answers false in Normal Mode" in {
+    // Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false in Normal Mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -228,8 +228,8 @@ class ResubmittingAdjustmentControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    // Change to apropriate page upon implementation
-    "redirect to checkyouranswers page when user answers false in Check Mode" in {
+    // Change to appropriate page upon implementation
+    "redirect to CheckYourAnswers page when user answers false in Check Mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)

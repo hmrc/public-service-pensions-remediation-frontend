@@ -29,11 +29,11 @@ case object IsRSSReceivedPage extends QuestionPage[Boolean] {
 
   override protected def navigateInNormalMode(answers: UserAnswers): Call = answers.get(IsRSSReceivedPage) match {
     case Some(true)  => routes.ResubmittingAdjustmentController.onPageLoad(NormalMode)
-    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kickout page upon implementation
+    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kick out page upon implementation
   }
   
   override protected def navigateInCheckMode(answers: UserAnswers): Call = answers.get(IsRSSReceivedPage) match {
     case Some(true)  => routes.ResubmittingAdjustmentController.onPageLoad(CheckMode)
-    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kickout page upon implementation
+    case Some(false) => routes.CheckYourAnswersController.onPageLoad //Redirect to kick out page upon implementation
   }
 }

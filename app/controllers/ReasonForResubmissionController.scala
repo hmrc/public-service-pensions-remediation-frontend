@@ -18,7 +18,7 @@ package controllers
 
 import controllers.actions._
 import forms.ReasonForResubmissionFormProvider
-import javax.inject.{Inject, Named}
+import javax.inject.Inject
 import models.Mode
 import pages.ReasonForResubmissionPage
 import play.api.i18n.{I18nSupport, MessagesApi}
