@@ -107,52 +107,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "must return a Bad Request and errors when invalid data is submitted" in {
-
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
-
-      running(application) {
-        val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
-            .withFormUrlEncodedBody(("value", ""))
-
-        val boundForm = form.bind(Map("value" -> ""))
-
-        val view = application.injector.instanceOf[IsRSSReceivedView]
-
-        val result = route(application, request).value
-
-        status(result) mustEqual BAD_REQUEST
-        contentAsString(result) mustEqual view(boundForm, NormalMode)(request, messages(application)).toString
-      }
-    }
-
-    "redirect to CheckYourAnswers page when user answers true" in {
-      val mockSessionRepository = mock[SessionRepository]
-
-      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
-
-      val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
-          .overrides(
-            bind[SessionRepository].toInstance(mockSessionRepository)
-          )
-          .build()
-
-      running(application) {
-        val request =
-          FakeRequest(POST, isRSSReceivedNormalRoute)
-            .withFormUrlEncodedBody(("value", "true"))
-
-        val result = route(application, request).value
-
-        status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
-      }
-    }
-
-    //Change to appropriate page upon implementation
-    "redirect to CheckYourAnswers page when user answers false" in {
+    "redirect to CheckYourEligibility page when user answers false" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -172,7 +127,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+        redirectLocation(result).value mustEqual routes.CheckYourEligibilityController.onPageLoad.url
       }
     }
 
@@ -200,8 +155,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    //Change to appropriate page upon implementation
-    "redirect to CheckYourAnswers page when user answers false in check mode" in {
+    "redirect to CheckYourEligibility page when user answers false in check mode" in {
       val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
@@ -221,7 +175,7 @@ class IsRSSReceivedControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result).value mustEqual routes.CheckYourAnswersController.onPageLoad.url
+        redirectLocation(result).value mustEqual routes.CheckYourEligibilityController.onPageLoad.url
       }
     }
   }

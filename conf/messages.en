@@ -62,3 +62,14 @@ isRSSReceived.yes = Yes
 isRSSReceived.no = No
 isRSSReceived.error.required = You must select one of the options
 isRSSReceived.checkYourAnswersLabel = Have you received a remedial service statement from your public service pension scheme?
+
+checkYourEligibility.title = Check your eligibility
+checkYourEligibility.heading = Check your eligibility
+checkYourEligibility.message = Your are currently unable to use the service.
+checkYourEligibility.message1 = Unless you have been contacted by HMRC or your Pension Scheme Administrator (PSA) stating you may have been affected by Public Service Pension Remediation, you cannot currently make a calculation.
+checkYourEligibility.message2 = You can:
+CheckYourEligibility.message3 = You can also contact customer services for more information or alternatively, click the link below.
+checkYourEligibility.list = contact your PSA for further information
+checkYourEligibility.list1 = check if you are eligible or may have been affected, using the checker (opens in a new tab)
+checkYourEligibility.redirect = Contact HMRC about pension schemes (opens in a new tab).
+

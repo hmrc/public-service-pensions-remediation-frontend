@@ -24,3 +24,5 @@ GET        /savings-statement                            controllers.IsRSSReceiv
 POST       /savings-statement                            controllers.IsRSSReceivedController.onSubmit(mode: Mode = NormalMode)
 GET        /change-savings-statement                     controllers.IsRSSReceivedController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-savings-statement                     controllers.IsRSSReceivedController.onSubmit(mode: Mode = CheckMode)
+
+GET        /ineligible                                   controllers.CheckYourEligibilityController.onPageLoad
